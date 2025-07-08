@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>youtube card</title>
+
+    <style>
+        .card-container {
+            border: 2px solid black;
+            width: 400px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(24, 24, 24);
+            padding: 10px;
+            border-radius: 8px;
+
+        }
+
+        .card-image {
+            /* border: 2px solid red; */
+            height: 70%;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-desc {
+            /* border: 2px solid blue; */
+            height: 30%;
+            display: flex;
+            padding-top: 10px;
+        }
+
+        .profile-pic {
+            width: 10%;
+        }
+
+        .profile-pic-wrapper {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .profile-pic img {
+            width: 100%;
+
+        }
+
+        .desc-text {
+            font-family: 'Courier New', Courier, monospace;
+            padding: 7px;
+            /* border: 2px solid yellow; */
+            flex-grow: 1;
+            color: aliceblue;
+
+            h3,
+            p {
+                margin: 0;
+                padding: 0;
+                text-transform: capitalize;
+            }
+
+            span {
+                color: gray;
+                font-size: 10px;
+            }
+
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div class="card-container">
+        <div class="card-image">
+            <img src="./images/thumnail.png" alt="no image found">
+
+        </div>
+        <div class="card-desc">
+            <div class="profile-pic">
+                <div class="profile-pic-wrapper">
+                    <img src="./images/himalayaTv.png" alt="">
+
+                </div>
+            </div>
+            <div class="desc-text">
+                <h3>himalaya tv</h3>
+                <p>himalaya tv</p>
+                <span>10k views</span>
+                <span>5 days ago</span>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
