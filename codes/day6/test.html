@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST</title>
+</head>
+
+<body>
+    <button id="sub-btn">-</button>
+
+    <div id="number-box">
+
+    </div>
+
+    <button id="add-btn">+</button>
+
+
+
+
+    <script>
+        const subBtn = document.getElementById("sub-btn");
+        const addBtn = document.getElementById("add-btn");
+
+        const numberBox = document.getElementById("number-box");
+
+        let number = 0
+
+        numberBox.innerText = number;
+
+        subBtn.addEventListener("click", () => {
+
+            number = number - 1
+
+            numberBox.innerText = number;
+        })
+
+        addBtn.addEventListener("click", () => {
+            number = number + 1
+
+            numberBox.innerText = number;
+
+        })
+
+
+    </script>
+
+</body>
+
+</html>
