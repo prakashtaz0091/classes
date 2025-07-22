@@ -1,8 +1,8 @@
 from utils import clear_screen
 import windows
+from permanent import load_students, add_student
 
-
-STUDENTS = []
+STUDENTS = load_students("students.csv")
 
 
 def registration():
@@ -11,8 +11,10 @@ def registration():
     age = int(input("Age: "))
     address = input("Address: ")
 
-    new_student = {"name": name, "age": age, "address": address}
+    new_student = [name, age, address]
     STUDENTS.append(new_student)
+    add_student("students.csv", new_student)
+
     print("################   Registration ended  ##########")
 
 
@@ -20,9 +22,9 @@ def show_all_students():
     for number, student in enumerate(STUDENTS, start=1):
         print(f"""
               -------- Student No: {number} ------------
-              Name      :   {student["name"]}
-              Age       :   {student["age"]}
-              Address   :   {student["address"]}
+              Name      :   {student[0]}
+              Age       :   {student[1]}
+              Address   :   {student[2]}
               ------------------------------------------              
               """)
 
