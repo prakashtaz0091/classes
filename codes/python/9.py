@@ -223,5 +223,5 @@ d1 = {"name": "ram", "roll_no": 20, "address": "ktm"}
 # gen = (num for num in range(2))
 # print(gen)
 
-d1_sorted = sorted(d1, key=lambda item: item[0])
+d1_sorted = dict(sorted(d1.items(), key=lambda item: item[0]))
 print(d1_sorted)
