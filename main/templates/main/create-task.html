@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task</title>
+</head>
+
+<body>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Title" name="title">
+        <input type="text" placeholder="Description" name="desc">
+        <button>Submit</button>
+    </form>
+
+
+</body>
+
+</html>
