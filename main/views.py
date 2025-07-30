@@ -1,5 +1,47 @@
 from django.shortcuts import render, redirect
-from .models import Task
+from .models import Task, School
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
+from django.urls import reverse_lazy
+
+
+class SchoolDelete(DeleteView):
+    model = School
+    success_url = reverse_lazy("schools_list")
+
+
+class SchoolUpdate(UpdateView):
+    model = School
+    fields = "__all__"
+    success_url = reverse_lazy("schools_list")
+
+
+class SchoolCreate(CreateView):
+    model = School
+    fields = "__all__"
+    success_url = reverse_lazy("schools_list")
+
+
+class SchoolDetail(DetailView):
+    model = School
+
+
+class SchoolView(ListView):
+    model = School
+
+
+# def school_detail(request, school_id):
+#     print("School detail page", school_id)
+#     return Http404("School not found")
+
+
+# def schools(request):
+#     print("Schools page")
 
 
 def home(request):
