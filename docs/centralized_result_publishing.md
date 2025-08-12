@@ -1,6 +1,45 @@
 # Centralized Result Publishing System — Rough Instructions
+---
+
+
+### Simple System Flow
+
+1. **School Registration**
+
+   * A school fills out a registration form to create an account in the system.
+
+2. **Admin Approval**
+
+   * The system admin reviews and approves the school registration.
+
+3. **School Admin Setup**
+
+   * The approved school admin logs in.
+   * Creates teacher profiles with usernames and passwords.
+   * Sets up academic years (e.g., 2024-2025), grades/classes, exams, and subjects.
+   * Assigns subjects to respective teachers.
+
+4. **Teacher Marks Entry**
+
+   * Teachers log in using their credentials.
+   * Enter or update marks for students in their assigned subjects and classes after exams are completed.
+
+5. **Marks Review and Completion**
+
+   * The system tracks when all subjects’ marks for an exam and grade are submitted.
+
+6. **Report Card Generation**
+
+   * School admin generates and prints report cards for all students in a class for a specific exam.
+
+7. **Future Enhancements (Optional)**
+
+   * Virtual tests setup and administration.
+   * Student profiles for accessing results online.
+   * Instant result calculation for virtual tests.
 
 ---
+
 
 ## 1. User and Role Setup
 
