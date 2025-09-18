@@ -1,7 +1,7 @@
 # # Assignment Operators
 # a = 2
 
-# # a += 5
+# # a += 5 => a 7
 # # a = a + 5
 # # a **= 5
 # # a /= 5
@@ -58,7 +58,7 @@
 
 
 # print(1, 2, 3,"ram")
-# print(1, 2, 3, "ram", sep="1")
+# print(1, 2, 3, "ram", sep="--|--")
 # asdf
 
 
@@ -99,17 +99,18 @@
 # 1.1 if statement
 # 1.2. if-else statement
 
-raining = input("Is it raining? (yes/no) >>> ")
+# raining = input("Is it raining? (yes/no) >>> ")
 
 #   "yes" == "yes" => True
 #   "no" == "yes" => False
 # if raining == "yes":
 #     print("Let's take an umbrella")
+# rotate motor by 90 deg
 # else:
 #     print("Don't take an umbrella")
 
 
-# 1.3. if-elif-elif-elif...-else statement
+# 1.3. if-elif-elif-elif...-else statement (if-elif-else)
 
 # if raining == "yes" or raining == "YES" or raining == "Yes":
 #     print("take an umbrella")
@@ -118,7 +119,9 @@ raining = input("Is it raining? (yes/no) >>> ")
 # else:
 #     print("Please enter correct response")
 
-
+# 1.lower()
+# "YeS".lower() => "yes"
+# raining.lower()
 # if raining.lower() == "yes":
 #     print("take an umbrella")
 # elif raining.lower() == "no":
@@ -127,13 +130,15 @@ raining = input("Is it raining? (yes/no) >>> ")
 #     print("Please enter correct response")
 
 #     "YES"
-if raining.upper() == "YES":
-    print("take an umbrella")
-    print("Have a safe journey")
-elif raining.upper() == "NO":
-    print("don't take an umbrella")
-else:
-    print("Please enter correct response")
+# if raining.upper() == "YES":
+#     print("take an umbrella")
+#     print("Have a safe journey")
+# elif raining.upper() == "NO":
+#     print("don't take an umbrella")
+# else:
+#     print("Please enter correct response")
 
 
-print("End of program")
+# print("End of program")
+
+
