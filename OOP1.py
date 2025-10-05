@@ -76,6 +76,8 @@ OOP is just a modern concept, which helps in better code organization, readabili
 
 
 # import math
+
+# print(type(math))
 # functions
 # math class -> methods
 # math -> add, sub
@@ -90,3 +92,10 @@ OOP is just a modern concept, which helps in better code organization, readabili
 # math.add()
 
 # math.sub()
+
+
+# def asdf():
+#     pass
+
+
+# print(type(asdf))
