@@ -4,7 +4,7 @@ import math
 
 
 # Import screen size constants from a central config or define here
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = 1000, 800
 
 
 class Shield:
@@ -104,7 +104,18 @@ class Enemy(pygame.sprite.Sprite):
 
 # ----------------- PLAYER CLASS -----------------
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, image, screen_rect):
+    def __init__(
+        self,
+        x,
+        y,
+        image,
+        screen_rect,
+        up_key,
+        down_key,
+        left_key,
+        right_key,
+        player_name="default",
+    ):
         """
         screen_rect: pass the screen.get_rect() from main.py
                      so Player doesn't depend on a global screen variable.
@@ -115,17 +126,22 @@ class Player(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.speed = 5
         self.screen_rect = screen_rect
+        self.move_up_key = up_key
+        self.move_down_key = down_key
+        self.move_left_key = left_key
+        self.move_right_key = right_key
+        self.player_name = player_name
 
     def update(self, keys):
         """Handle keyboard movement (supports diagonal)."""
         dx = dy = 0
-        if keys[pygame.K_LEFT]:
+        if keys[self.move_left_key]:
             dx = -self.speed
-        if keys[pygame.K_RIGHT]:
+        if keys[self.move_right_key]:
             dx = self.speed
-        if keys[pygame.K_UP]:
+        if keys[self.move_up_key]:
             dy = -self.speed
-        if keys[pygame.K_DOWN]:
+        if keys[self.move_down_key]:
             dy = self.speed
 
         self.rect.x += dx
