@@ -1,416 +1,196 @@
-
-# 🌐 Introduction to HTML
-
-**HTML (HyperText Markup Language)** is the standard language used to create and design web pages. It structures the content using various tags and elements.
+# **Python Notes for Beginners**
 
 ---
 
-## 🔹 HTML Elements
+## 1. What is Software?
 
-An **HTML element** consists of a start tag, content, and an end tag:
+- **Software** is a collection of **programs** that tell a computer what to do and how to do it.
+- It is the **set of instructions** that make hardware useful.
 
-```html
-<p>This is a paragraph.</p>
+**Examples:**
+
+- Microsoft Word – helps us create documents.
+- Google Chrome – helps us browse the internet.
+- Python – a software that helps us write and execute other programs.
+
+---
+
+## 2. What is a Program?
+
+- A **program** is a **set of instructions** written in a **programming language** to perform a specific task.
+
+**Example:**
+
+```python
+print("Hello, World!")
 ```
 
-Elements can be **nested** inside each other.
+This small program instructs the computer to display the text “Hello, World!” on the screen. Small programs are combined to form **applications** and **softwares**.
 
 ---
 
-## 🔸 HTML Attributes
+## 3. Evolution of Programming Languages
 
-Attributes provide **additional information** about elements. They're always defined in the **start tag**.
+Computers understand only **machine language (0s and 1s)**, which is very difficult for humans to use.
+To make programming easier, languages evolved over time.
 
-```html
-<img src="logo.png" alt="Company Logo" width="100" height="100">
+| Stage | Language Type            | Example             | Description                                                      |
+| :---- | :----------------------- | :------------------ | :--------------------------------------------------------------- |
+| 1     | **Machine Language**     | `10110000 01100001` | Written in binary (0s and 1s), hard for humans to understand.    |
+| 2     | **Assembly Language**    | `MOV AL, 61h`       | Uses mnemonics (short codes), slightly easier but still complex. |
+| 3     | **High-Level Languages** | `print("Hello")`    | Easy to read and write, closer to human language.                |
+
+**Python** is a **high-level language**, meaning we can write simple, human-readable code.
+Internally, Python is **built using C**, a lower-level language that communicates with hardware more directly.
+
+---
+
+## 4. Translators: Assembler, Compiler, and Interpreter
+
+Computers only understand **machine code**, so we use **translators** to convert our source code into machine-readable form.
+
+| Translator      | Converts                      | Commonly Used For                 | Example            |
+| :-------------- | :---------------------------- | :-------------------------------- | :----------------- |
+| **Assembler**   | Assembly → Machine Code       | Low-level programming             | Device drivers     |
+| **Compiler**    | Entire program → Machine Code | Languages like C, C++             | GCC Compiler       |
+| **Interpreter** | Line by line → Machine Code   | Languages like Python, JavaScript | Python Interpreter |
+
+**Python uses both compiler and interpreter:**
+
+1. The **Python compiler** first converts your code into **bytecode (.pyc)**.
+2. The **Python interpreter** then executes that bytecode line by line.
+
+To run Python programs, we must install the **Python Interpreter**.
+
+**Example (running a Python file):**
+
+```bash
+python hello.py
 ```
 
-Common attributes include `id`, `class`, `href`, `src`, `alt`, and `style`.
+Here, `python` is the interpreter that executes your code.
 
 ---
 
-## 🧩 Document Structure
+## 5. Programming is About Data and Data Manipulation
 
-A basic HTML5 document structure looks like this:
+Programming is fundamentally about working with **data**:
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>My Page</title>
-</head>
-<body>
-  <h1>Hello, World!</h1>
-</body>
-</html>
+- Storing data
+- Processing data
+- Producing meaningful output
+
+**Example:**
+
+```python
+x = 5
+y = 3
+print(x + y)
 ```
 
-* `<!DOCTYPE html>` declares HTML5
-* `<html>` is the root element
-* `<head>` contains metadata
-* `<body>` contains visible content
+This program manipulates data (numbers) to produce a new result (8).
 
 ---
 
-## 💬 HTML Comments
+## 6. To Manipulate Data, we temporarily Store it.
 
-Used to add notes in code, ignored by browsers.
+Data are stored in computer memory (RAM) temporarily, so that we can use them in our programs when we need them. But remembering memory addresses eg. `0x1234` is not easy. So this is where **variables** come into play. Variables do hardwork for us, so that we don't have to remember memory addresses. Also in other words, variable i.e. **vary** + **able**, means that it can be changed. We can change the value of a variable at any time.
+For example.
 
-```html
-<!-- This is a comment -->
+```python
+x = 5
+#.... other code
+
+x = 10
+
+print(x)
+
 ```
 
----
+- This program prints the value of `x` which is 10. Program runs from top to bottom. So first it stores 5 in `x` and then changes the value of `x` to 10. Finally it prints the value of `x` which is 10.
 
-## 🔠 HTML Headings
+## 7. Built-in Data Types in Python
 
-Defined using `<h1>` to `<h6>`:
+Python provides several **built-in data types** that we use to store and work with different kinds of data.
 
-```html
-<h1>Main Heading</h1>
-<h2>Subheading</h2>
-```
+| Data Type    | Example                        | Description                         |
+| :----------- | :----------------------------- | :---------------------------------- |
+| **int**      | `10`, `-5`, `0`                | Integer numbers                     |
+| **float**    | `3.14`, `-2.7`                 | Decimal numbers                     |
+| **complex**  | `2 + 3j`                       | Complex numbers                     |
+| **str**      | `"Hello"`, `'Python'`          | String or text data                 |
+| **bool**     | `True`, `False`                | Logical values                      |
+| **list**     | `[1, 2, 3]`                    | Ordered and changeable collection   |
+| **tuple**    | `(1, 2, 3)`                    | Ordered and unchangeable collection |
+| **set**      | `{1, 2, 3}`                    | Unordered and unique collection     |
+| **dict**     | `{"name": "Alice", "age": 20}` | Key-value pairs                     |
+| **NoneType** | `None`                         | Represents “no value” or “nothing”  |
 
-`<h1>` is the most important, `<h6>` the least.
+**Example in Code:**
 
----
-
-## 📝 HTML Paragraphs
-
-Use the `<p>` tag:
-
-```html
-<p>This is a paragraph of text.</p>
-```
-
----
-
-## 🔗 HTML Links
-
-Created with the `<a>` tag and `href` attribute:
-
-```html
-<a href="https://example.com">Visit Example</a>
-```
-
----
-
-## 🖼️ HTML Images
-
-Use the `<img>` tag, which is **self-closing**:
-
-```html
-<img src="image.jpg" alt="A sample image">
-```
-
----
-
-## 🌟 Favicon
-
-A **favicon** is the small icon shown in browser tabs. Defined in the `<head>`:
-
-```html
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-```
-
----
-
-## 🏷️ Page Title
-
-Set using the `<title>` tag inside `<head>`:
-
-```html
-<title>My Web Page</title>
-```
-
----
-
-## 📊 Tables
-
-Defined with `<table>`, and use:
-
-* `<tr>` for rows
-* `<th>` for headers
-* `<td>` for data
-
-```html
-<table>
-  <tr>
-    <th>Name</th><th>Age</th>
-  </tr>
-  <tr>
-    <td>Alice</td><td>25</td>
-  </tr>
-</table>
+```python
+a = 10          # int
+b = 3.14        # float
+c = "Python"    # str
+d = [1, 2, 3]   # list
+e = None        # NoneType
 ```
 
 ---
 
-## 📝 Lists
+## 8. Importance of NoneType
 
-* **Ordered List**: `<ol>`
-* **Unordered List**: `<ul>`
-* **List Item**: `<li>`
+`None` is a special value in Python that represents **“no value”** or **“nothing here yet.”**
 
-```html
-<ul>
-  <li>Item One</li>
-  <li>Item Two</li>
-</ul>
+It is not:
+
+- `0` (zero)
+- `False`
+- or an empty string `""`
+
+It is its own unique data type: **NoneType**
+
+**Example:**
+
+```python
+x = None
+print(x)
 ```
 
----
-
-## 🧱 HTML Block vs Inline Elements
-
-* **Block elements**: Start on a new line and take full width
-  Examples: `<div>`, `<p>`, `<h1>`–`<h6>`, `<table>`
-* **Inline elements**: Do not start on a new line
-  Examples: `<span>`, `<a>`, `<img>`, `<strong>`
-
----
-
-## 🧩 Divs
-
-The `<div>` element is a **generic container** for grouping block-level content.
-
-```html
-<div class="section">
-  <p>This is inside a div.</p>
-</div>
-```
-
-Used for layout and styling.
-
----
-
-## 🎨 Span
-
-The `<span>` tag is a **generic inline container** for grouping inline content.
-
-```html
-<p>This is a <span style="color:red;">highlighted</span> word.</p>
-```
-
-Used primarily for styling small parts of text.
-
----
-
-## 🔁 HTML vs XHTML
-
-| Feature          | HTML                      | XHTML                              |
-| ---------------- | ------------------------- | ---------------------------------- |
-| Syntax           | Flexible                  | Strict                             |
-| Closing Tags     | Optional for some         | Required for all                   |
-| Case Sensitivity | Not case-sensitive        | Case-sensitive (`<Img>` ≠ `<img>`) |
-| Parsing          | Forgiving                 | Strict, XML-based                  |
-| DOCTYPE          | `<!DOCTYPE html>` (HTML5) | Must declare XML DTD               |
-
-XHTML is a stricter XML-compliant version of HTML.
-
----
-# HTML5 semantic elements: `header`, `nav`, `section`, `article`, `aside`, and `footer`.
-
----
-
-## 🔸 `<nav>`
-
-The `<nav>` element defines a section containing **navigation links**.
-
-```html
-<nav>
-  <ul>
-    <li><a href="/home">Home</a></li>
-    <li><a href="/about">About</a></li>
-    <li><a href="/contact">Contact</a></li>
-  </ul>
-</nav>
-```
-
-* Helps **screen readers and bots** identify navigation menus.
-* Usually contains the main or secondary navigation.
-
----
-
-## 📦 `<section>`
-
-The `<section>` element defines a **thematic grouping of content**, typically with a heading.
-
-```html
-<section>
-  <h2>Our Services</h2>
-  <p>We offer web development and design.</p>
-</section>
-```
-
-* Use when content has a **logical grouping** and needs a heading.
-* Don’t use `<section>` for generic containers — prefer `<div>` in those cases.
-
----
-
-## 📰 `<article>`
-
-The `<article>` element represents **self-contained content** that could be independently distributed.
-
-```html
-<article>
-  <h2>Blog Post Title</h2>
-  <p>This blog post talks about semantic HTML...</p>
-</article>
-```
-
-* Examples: blog posts, forum threads, news articles.
-* Each `<article>` may have its own `<header>` and `<footer>`.
-
----
-
-## 🧾 `<aside>`
-
-The `<aside>` element contains content **indirectly related** to the main content.
-
-```html
-<aside>
-  <h3>Related Articles</h3>
-  <ul>
-    <li><a href="#">Semantic Tags Explained</a></li>
-    <li><a href="#">HTML5 Cheatsheet</a></li>
-  </ul>
-</aside>
-```
-
-* Think of it as a **sidebar** or **callout box**.
-* Can be used **inside or outside** the main content.
-
----
-
-## 🔻 `<footer>`
-
-The `<footer>` element typically contains **footer information** for a section or page.
-
-```html
-<footer>
-  <p>&copy; 2025 My Website</p>
-  <p><a href="/privacy">Privacy Policy</a></p>
-</footer>
-```
-
-* Common contents: copyrights, contact info.
-* Can appear **once per page** or within each section/article.
-
----
-
-## ✅ Summary Table
-
-| Tag         | Purpose                                 |
-| ----------- | --------------------------------------- |
-| `<header>`  | Top/intro part of page or section       |
-| `<nav>`     | Navigation links                        |
-| `<section>` | Thematic grouping of content            |
-| `<article>` | Standalone, distributable content       |
-| `<aside>`   | Side content, like ads or related links |
-| `<footer>`  | Bottom info (copyright, links, etc.)    |
-
----
-
-These tags enhance the structure and meaning of your HTML, which is especially helpful for accessibility tools and search engines.
-
+Output:
 
 ```
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Semantic HTML Example</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    header, nav, section, article, aside, footer {
-      padding: 1em;
-      margin: 0;
-    }
-    nav {
-      background-color: #333;
-      color: white;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      padding: 0;
-    }
-    nav ul li {
-      margin-right: 20px;
-    }
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-    }
-    main {
-      display: flex;
-    }
-    section {
-      flex: 3;
-      padding: 1em;
-    }
-    aside {
-      flex: 1;
-      background: #f0f0f0;
-      padding: 1em;
-    }
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>My Website</h1>
-    <p>Learning Semantic HTML Layout</p>
-  </header>
-
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Blog</a></li>
-      <li><a href="#">About</a></li>
-    </ul>
-  </nav>
-
-  <main>
-    <section>
-      <article>
-        <h2>What is Semantic HTML?</h2>
-        <p>Semantic HTML uses HTML5 elements that clearly describe their meaning in a human- and machine-readable way.</p>
-      </article>
-
-      <article>
-        <h2>Benefits of Semantic Tags</h2>
-        <p>They improve SEO, accessibility, and code readability.</p>
-      </article>
-    </section>
-
-    <aside>
-      <h3>Related Topics</h3>
-      <ul>
-        <li><a href="#">HTML5 New Features</a></li>
-        <li><a href="#">Accessibility Basics</a></li>
-      </ul>
-    </aside>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 My Website | <a href="#" style="color:white;">Privacy Policy</a></p>
-  </footer>
-
-</body>
-</html>
-
+None
 ```
 
+**Uses of None:**
 
+- A function that doesn’t return anything automatically returns `None`.
+- When you want to create a variable but don’t have a value for it yet.
+
+**Example:**
+
+```python
+result = None
+if condition_met:
+    result = 10
+```
+
+In this way, `None` acts as a placeholder to indicate that a value is not yet assigned.
+
+---
+
+## Summary
+
+| Concept                 | Key Idea                                                     |
+| :---------------------- | :----------------------------------------------------------- |
+| **Software**            | Collection of programs to perform specific tasks             |
+| **Program**             | A set of instructions written in a programming language      |
+| **Language Evolution**  | Machine → Assembly → High-Level (Python)                     |
+| **Translators**         | Convert human code into machine code                         |
+| **Python Interpreter**  | Executes Python programs using both compiler and interpreter |
+| **Programming**         | Involves working with and manipulating data                  |
+| **Built-in Data Types** | int, float, str, list, tuple, set, dict, bool, NoneType      |
+| **NoneType**            | Represents the absence of a value                            |
+
+---
