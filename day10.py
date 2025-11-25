@@ -27,13 +27,16 @@
 # from datetime import datetime, date
 
 # today = date.today()
+
+# date(2001, 07, 14)
 # # print(type(today))
 # # print(today.strftime("%d/%m/%Y"))
 
 # birthday_input_text = input("Enter your birth date (dd/mm/YY) : ")
 
 # birthday = datetime.strptime(birthday_input_text, "%d/%m/%Y").date()
-
+# today => date
+# birthday => date
 
 # result = today - birthday
 
@@ -117,71 +120,71 @@
 ###############################
 ###############################
 ###############################
-from tabulate import tabulate
+# from tabulate import tabulate
 
-# Mini Student Tracker
-MENU = """
-    1. Add Student Data
-    2. Show all students data
-    3. Remove student data
-    Q. Quit
-"""
-students = []
-
-
-def show_menu():
-    print(MENU)
+# # Mini Student Tracker
+# MENU = """
+#     1. Add Student Data
+#     2. Show all students data
+#     3. Remove student data
+#     Q. Quit
+# """
+# students = []
 
 
-def show_all_students_data():
-    headers = ["Student Name", "Age"]
-    table = []
-    for student in students:
-        table.append(student.values())
-
-    print(tabulate(table, headers, tablefmt="heavy_grid"))
+# def show_menu():
+#     print(MENU)
 
 
-def add_student():
-    name_input = input("Enter name: ")
-    age_input = input("Enter age: ")
+# def show_all_students_data():
+#     headers = ["Student Name", "Age"]
+#     table = []
+#     for student in students:
+#         table.append(student.values())
 
-    new_student = {"name": name_input, "age": age_input}
-    students.append(new_student)
-
-
-def remove_student():
-    name_to_remove = input("Enter student name to remove: ")
-    for student in students:
-        # check if student name is stu_name_to_remove
-        if student["name"] == name_to_remove:
-            students.remove(student)
-            break
+#     print(tabulate(table, headers, tablefmt="heavy_grid"))
 
 
-# Main loop
-while True:
-    # 1. Show menu to the user
-    show_menu()
+# def add_student():
+#     name_input = input("Enter name: ")
+#     age_input = input("Enter age: ")
 
-    # 2. Take input from user
-    user_choice = input("Enter your choice (1/2/3/Q) >>> ")
+#     new_student = {"name": name_input, "age": age_input}
+#     students.append(new_student)
 
-    # if user_choice == "Q" or user_choice == "q":
-    if user_choice in ("Q", "q"):
-        print("Thank you for using our program")
-        break
 
-    elif user_choice == "1":
-        add_student()
-        # ask if user wants to enter another student data
-        # if yes=> run add_student() again. Hint, use while loop
+# def remove_student():
+#     name_to_remove = input("Enter student name to remove: ")
+#     for student in students:
+#         # check if student name is stu_name_to_remove
+#         if student["name"] == name_to_remove:
+#             students.remove(student)
+#             break
 
-    elif user_choice == "2":
-        show_all_students_data()
 
-    elif user_choice == "3":
-        remove_student()
+# # Main loop
+# while True:
+#     # 1. Show menu to the user
+#     show_menu()
 
-    else:
-        print("Invalid input ! Please read the instructions carefully ")
+#     # 2. Take input from user
+#     user_choice = input("Enter your choice (1/2/3/Q) >>> ")
+
+#     # if user_choice == "Q" or user_choice == "q":
+#     if user_choice in ("Q", "q"):
+#         print("Thank you for using our program")
+#         break
+
+#     elif user_choice == "1":
+#         add_student()
+#         # ask if user wants to enter another student data
+#         # if yes=> run add_student() again. Hint, use while loop
+
+#     elif user_choice == "2":
+#         show_all_students_data()
+
+#     elif user_choice == "3":
+#         remove_student()
+
+#     else:
+#         print("Invalid input ! Please read the instructions carefully ")
