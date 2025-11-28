@@ -112,7 +112,7 @@ s2 = Student("hari", 14)
 
 # print(s1.school)
 # print(s2.school)
-s1.show_stu_info()
+s2.show_stu_info()
 
 # print(Student.school)
 # print(Student.name)
@@ -122,12 +122,13 @@ Student.show_school_name()
 
 """
 1. object & class
-2. contructor method __init__
+2. constructor method __init__
 3. self -> it means, current object, for eg. s1.show_info(), self means s1
 4. method -> function defined inside a class. This function is only applicable or available for class related objects
 5. data member -> variable, but related to class or object
 6. attribute -> data members or methods
 7. instance -> it means object, nothing more nothing less
+    object creation process is called as instantiation
 8. object attribute -> those data members or methods which are related to each and every object 
 9. class attribute -> those data members or methods which are related directly to class, rather than any object. Class attribute can be accessed directly with class name, we don't need any objects for that.
 """
