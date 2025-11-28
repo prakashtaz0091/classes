@@ -1,0 +1,59 @@
+/* ============================= */
+/* General page style */
+body {
+    font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333333;
+    background-color: #ffffff;
+    line-height: 1.6;
+    margin: 2cm;
+}
+
+/* ============================= */
+/* Headings */
+h1 { color: #222222; font-size: 28pt; margin-bottom: 12px; }
+h2 { color: #222222; font-size: 24pt; margin-bottom: 10px; }
+h3 { color: #333333; font-size: 20pt; margin-bottom: 8px; }
+h4, h5, h6 { color: #444444; }
+
+/* ============================= */
+/* Code blocks */
+pre, code {
+    background-color: #f5f5f5;  /* light grey background */
+    color: #1e1e1e;             /* dark text */
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 11pt;
+    line-height: 1.4;
+    padding: 8px 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+/* Inline code */
+code {
+    padding: 2px 4px;
+}
+
+/* Optional subtle shadow for pre blocks */
+pre {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ============================= */
+/* Tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+}
+th {
+    background-color: #f0f0f0;
+    color: #111111;
+}
+
+/* ============================= */
+/* Links */
+a { color: #0066cc; text-decoration: none; }
+a:hover { text-decoration: underline; }
