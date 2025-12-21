@@ -48,6 +48,14 @@ PgBouncer provides a **true, shared connection pool** by running outside Django.
 
 ```
 Django workers → PgBouncer → PostgreSQL
+
+
+Django (multiple workers/processes)
+        ↓
+PgBouncer (single service / few processes)
+        ↓
+PostgreSQL (database server)
+
 ```
 
 ### What PgBouncer does
