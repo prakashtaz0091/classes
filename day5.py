@@ -29,7 +29,7 @@
 
 # participants.pop()
 # print(participants)
-# participants.pop(0)
+# removed_value = participants.pop(0)
 
 # print(participants)
 

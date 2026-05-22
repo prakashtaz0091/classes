@@ -23,7 +23,7 @@
 # for i in range(1, 5):
 #     print("Welcome home !!!", i)
 
-
+# def range(stop, start=0, step=1)
 # range(1, 5, 2) => 1 is starting value, 5 is stopping value, 5 is excluded, 2 is called step value
 # for i in range(1, 5, 2):
 #     print("Welcome home !!!", i)
