@@ -146,12 +146,12 @@
 #         start += 1
         
 #         # [0,2,3,,,4]
-# r = range(100)
-
+r = range(100)
+print(type(r))
 # for num in r:
 #     print(num)
 # r = range(10)
-# ri = iter(r)
+ri = iter(r)
 # print(r.__iter__)
 # print(ri.__next__)
 
