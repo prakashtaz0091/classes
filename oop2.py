@@ -60,15 +60,15 @@ class BankAccount:
    
    
     
-a1 = BankAccount("Ram", 1500)
+a1 = BankAccount("Ram")
 # a2 = BankAccount("Hari", 1500)
 # a3 = BankAccount("Shyam", 1500)
 
 # print("Balance of account a1 ", a1.balance)
 # print("Balance of account a2 ", a2.balance)
 
-# a1.display_currency = BankAccount.currency_options[1] # USD
-# a1.show_account_details()
+a1.display_currency = BankAccount.currency_options[1] # USD
+a1.show_account_details()
 
 # a2.show_account_details()
 
@@ -96,7 +96,7 @@ a1 = BankAccount("Ram", 1500)
 # a1._BankAccount__balance = -1500
 # print(a1._BankAccount__balance)
 # a1.show_account_details()
-# a1.balance = "abc"
+a1.balance = "abc"
 # print(a1.balance)
 # a1.set_new_balance(1500)
 
