@@ -1,4 +1,0 @@
-abc
-def
-
-Thi	s is another line of text
