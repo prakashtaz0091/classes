@@ -1,6 +1,6 @@
 # Django ORM — Complete Learning Notes (Cinema Project)
 
-These notes follow a **progressive learning path**: from basic querying to advanced relationships, aggregation, and optimization. We use your actual cinema models throughout.
+These notes follow a **progressive learning path**: from basic querying to creating/updating/deleting data, then into relationships, aggregation, and optimization. We use your actual cinema models throughout.
 
 ---
 
@@ -226,7 +226,245 @@ Show.objects.order_by("-price")
 
 ---
 
-# Stage 3 — Forward ForeignKey Access
+# Stage 3 — Creating Objects
+
+You've learned how to *read* data. Now learn to *write* it.
+
+### Method 1 — build, then `.save()`
+
+```python
+movie = Movie(name="Inception", genre="Sci-Fi")
+movie.save()   # INSERT happens here, not before
+```
+
+Before `.save()`, the object only exists in Python memory — nothing is in the database yet, and `movie.id` is `None`.
+
+### Method 2 — `.create()` (does both steps in one line)
+
+```python
+movie = Movie.objects.create(name="Inception", genre="Sci-Fi")
+# object is created AND saved immediately
+```
+
+This is the most common way to create objects.
+
+### Creating objects that reference other objects (ForeignKey)
+
+Just pass the related object itself, not its id:
+
+```python
+cinema = Cinema.objects.create(name="PVR", location="Kathmandu")
+
+cinemahall = CinemaHall.objects.create(cinema=cinema, name="Hall 1")
+
+seat = Seat.objects.create(name="A1", cinemahall=cinemahall)
+
+movie = Movie.objects.create(name="Inception", genre="Sci-Fi")
+
+show = Show.objects.create(
+    movie=movie,
+    cinemahall=cinemahall,
+    show_time="2026-09-01 18:00:00",
+    price=500,
+)
+```
+
+You can also pass the raw id using the `_id` suffix:
+
+```python
+show = Show.objects.create(
+    movie_id=movie.id,
+    cinemahall_id=cinemahall.id,
+    show_time="2026-09-01 18:00:00",
+    price=500,
+)
+```
+
+### `get_or_create()` — avoid duplicates
+
+> Get this object if it exists, otherwise create it.
+
+```python
+movie, created = Movie.objects.get_or_create(
+    name="Inception",
+    defaults={"genre": "Sci-Fi"},
+)
+```
+
+- `movie` → the matched or newly created object
+- `created` → `True` if it was just created, `False` if it already existed
+
+Only the fields passed directly (`name="Inception"`) are used to *look up* the object. Fields inside `defaults` are only used *when creating*.
+
+### `update_or_create()` — create, or update if it exists
+
+```python
+show, created = Show.objects.update_or_create(
+    cinemahall=cinemahall,
+    movie=movie,
+    show_time="2026-09-01 18:00:00",
+    defaults={"price": 600},
+)
+# If a matching Show exists, its price is updated to 600.
+# If not, a new Show is created with price=600.
+```
+
+### Bulk creation (efficient — one query for many rows)
+
+```python
+Seat.objects.bulk_create([
+    Seat(name="A1", cinemahall=cinemahall),
+    Seat(name="A2", cinemahall=cinemahall),
+    Seat(name="A3", cinemahall=cinemahall),
+])
+```
+
+Much faster than looping and calling `.create()` repeatedly, because it's a single SQL `INSERT`.
+
+### ✅ Practice checklist for Stage 3
+
+```python
+Movie.objects.create(name="Titanic", genre="Romance")
+Movie.objects.get_or_create(name="Titanic", defaults={"genre": "Romance"})
+Show.objects.update_or_create(movie=movie, cinemahall=hall, show_time=..., defaults={"price": 700})
+Seat.objects.bulk_create([...])
+```
+
+---
+
+# Stage 4 — Updating Objects
+
+### Method 1 — modify attributes, then `.save()`
+
+```python
+movie = Movie.objects.get(id=1)
+movie.genre = "Adventure"
+movie.save()   # UPDATE happens here
+```
+
+`.save()` re-writes the **entire row** by default (all fields), so this pattern is best when you already loaded the object and are changing a field or two.
+
+You can limit which fields get written using `update_fields` (a minor optimization):
+
+```python
+movie.save(update_fields=["genre"])
+```
+
+### Method 2 — `.update()` on a QuerySet (bulk update, no `.save()` needed)
+
+> Update many rows directly in the database, in a single SQL query.
+
+```python
+Show.objects.filter(cinemahall=hall).update(price=550)
+# every matching Show's price becomes 550, in ONE query
+```
+
+Key difference from Method 1:
+
+| | `.save()` | `.update()` |
+|---|---|---|
+| Works on | A single object | A QuerySet (many rows at once) |
+| Triggers `save()` model method / signals | Yes | No |
+| Number of queries | 1 per object | 1 total, regardless of row count |
+
+Because `.update()` skips Python-level model logic, it's very fast for bulk changes — but don't use it if your model's `save()` method has custom logic (like auto-setting a timestamp) that you rely on.
+
+### Updating using an existing field's value (`F()` — preview)
+
+```python
+from django.db.models import F
+
+Show.objects.update(price=F("price") + 50)   # raise every price by 50, in the DB itself
+```
+
+We'll cover `F()` in full later — this is just to show it's part of updating too.
+
+### Bulk update from Python objects
+
+```python
+shows = Show.objects.filter(cinemahall=hall)
+for show in shows:
+    show.price += 50
+
+Show.objects.bulk_update(shows, ["price"])
+# one query updates all rows, using the values already computed in Python
+```
+
+### ✅ Practice checklist for Stage 4
+
+```python
+movie = Movie.objects.get(id=1); movie.genre = "Adventure"; movie.save()
+Show.objects.filter(price__lt=300).update(price=300)
+Show.objects.update(price=F("price") + 50)
+Show.objects.bulk_update(shows, ["price"])
+```
+
+---
+
+# Stage 5 — Deleting Objects
+
+### Deleting a single object
+
+```python
+movie = Movie.objects.get(id=1)
+movie.delete()
+```
+
+### Deleting many objects (bulk delete)
+
+```python
+Movie.objects.filter(genre="Horror").delete()
+# deletes every Movie whose genre is Horror, in one operation
+```
+
+⚠️ Be careful — `.delete()` with no `.filter()` first deletes **everything**:
+
+```python
+Movie.objects.all().delete()   # deletes ALL movies!
+```
+
+### What happens to related objects on delete? — `on_delete`
+
+Your models already define this behavior:
+
+```python
+class Show(models.Model):
+    movie = models.ForeignKey(Movie, on_delete=models.PROTECT)
+```
+
+| `on_delete` option | Behavior when the related object is deleted |
+|---|---|
+| `models.CASCADE` | Also delete this object (used for `Seat.cinemahall`) |
+| `models.PROTECT` | Block the delete entirely, raise `ProtectedError` (used everywhere else in your models) |
+| `models.SET_NULL` | Set the FK field to `NULL` (field must allow `null=True`) |
+| `models.SET_DEFAULT` | Set the FK field to its default value |
+
+In your project:
+
+```python
+# Seat.cinemahall uses CASCADE:
+cinemahall.delete()
+# → also deletes every Seat in that hall automatically
+
+# Show.movie uses PROTECT:
+movie.delete()
+# → raises ProtectedError if any Show still references this movie
+#   you must delete/reassign those Shows first
+```
+
+This is why `PROTECT` is a safe default for cinema data — you don't want to accidentally wipe out a Movie and silently lose all historical Shows and Reservations tied to it.
+
+### ✅ Practice checklist for Stage 5
+
+```python
+Movie.objects.get(id=5).delete()
+Show.objects.filter(price__lt=100).delete()
+# try deleting a Movie that has Shows — observe the ProtectedError
+```
+
+---
+
+# Stage 6 — Forward ForeignKey Access
 
 You already have an object → just access the related field like a normal Python attribute.
 
@@ -250,7 +488,7 @@ seat.cinemahall.cinema.location   # Seat → CinemaHall → Cinema → location
 
 ---
 
-# Stage 4 — Traversing Relationships Inside `filter()`
+# Stage 7 — Traversing Relationships Inside `filter()`
 
 Now the double underscore (`__`) means something new: **"follow this relationship."**
 
@@ -291,7 +529,7 @@ Show.objects.filter(movie__name__icontains="bat")
 
 ---
 
-# Stage 5 — Reverse Relationships
+# Stage 8 — Reverse Relationships
 
 Forward access (`show.movie`) is easy because the ForeignKey is *defined* on `Show`. But what if you're standing on `Movie` and want its `Show`s? That relationship isn't explicitly written anywhere on `Movie` — Django creates it automatically, in reverse.
 
@@ -326,7 +564,7 @@ user.reservation_set.all()      # all Reservations made by this user
 
 ---
 
-# Stage 6 — `related_name`
+# Stage 9 — `related_name`
 
 `movie.show_set` works, but the name is ugly. This is the actual problem `related_name` solves — you're not learning it as a rule to memorize, you're fixing something you've already run into.
 
@@ -354,7 +592,7 @@ cinemahall.shows.all()
 **Suggested `related_name`s for your project:**
 
 ```python
-# Cinema
+# CinemaHall
 cinema = models.ForeignKey(Cinema, on_delete=models.PROTECT, related_name="halls")
 
 # Seat
@@ -386,7 +624,7 @@ seat.reservations.all()
 
 ---
 
-# Stage 7 — Reverse Traversal Inside `filter()`
+# Stage 10 — Reverse Traversal Inside `filter()`
 
 Once you have `related_name`, you can also query "backwards" starting from the "one" side.
 
@@ -409,7 +647,7 @@ Movie.objects.filter(shows__price__gt=1000).distinct()
 
 ---
 
-# Stage 8 — `select_related()` and `prefetch_related()` (Performance)
+# Stage 11 — `select_related()` and `prefetch_related()` (Performance)
 
 ### The problem: N+1 queries
 
@@ -464,7 +702,7 @@ Reservation.objects.select_related(
 
 ---
 
-# Stage 9 — `Q()` Objects (OR conditions)
+# Stage 12 — `Q()` Objects (OR conditions)
 
 `filter(a=1, b=2)` only gives you AND. For OR, NOT, or complex combinations, use `Q`.
 
@@ -486,7 +724,7 @@ Show.objects.filter(
 
 ---
 
-# Stage 10 — `annotate()` and `aggregate()`
+# Stage 13 — `annotate()` and `aggregate()`
 
 ### `aggregate()` — one summary value for the whole QuerySet
 
@@ -518,7 +756,7 @@ Movie.objects.annotate(show_count=Count("shows")).filter(show_count__gt=5)
 
 ---
 
-# Stage 11 — `F()` Expressions and Conditional Logic
+# Stage 14 — `F()` Expressions and Conditional Logic
 
 ### `F()` — reference another field's value in the database itself
 
@@ -549,7 +787,7 @@ Show.objects.annotate(
 
 ---
 
-# Stage 12 — `Subquery`, `OuterRef`, `Exists`
+# Stage 15 — `Subquery`, `OuterRef`, `Exists`
 
 For advanced correlated subqueries.
 
@@ -572,7 +810,7 @@ Movie.objects.annotate(has_show=Exists(has_show)).filter(has_show=True)
 
 ---
 
-# Stage 13 — Production Concerns
+# Stage 16 — Production Concerns
 
 ### Transactions
 
@@ -630,24 +868,31 @@ print(Show.objects.filter(price__gt=500).query)
 |---|---|---|
 | 1 | Basic querying | `Movie.objects.filter(genre="Action")` |
 | 2 | Field lookups | `name__icontains`, `price__gt` |
-| 3 | Forward FK access | `show.movie.name` |
-| 4 | Relationship traversal in filter | `Show.objects.filter(movie__genre="Action")` |
-| 5 | Reverse relationships (default) | `movie.show_set.all()` |
-| 6 | `related_name` | `movie.shows.all()` |
-| 7 | Reverse traversal in filter | `Movie.objects.filter(shows__price__gt=1000)` |
-| 8 | Query optimization | `select_related()`, `prefetch_related()` |
-| 9 | OR logic | `Q()` |
-| 10 | Aggregation | `annotate()`, `aggregate()`, `Count()` |
-| 11 | DB-level expressions | `F()`, `Case()`, `When()` |
-| 12 | Correlated subqueries | `Subquery()`, `OuterRef()`, `Exists()` |
-| 13 | Production readiness | transactions, locking, constraints, indexes |
+| 3 | Creating objects | `Movie.objects.create(...)`, `get_or_create()`, `bulk_create()` |
+| 4 | Updating objects | `movie.save()`, `.update()`, `bulk_update()` |
+| 5 | Deleting objects | `.delete()`, `on_delete` behavior |
+| 6 | Forward FK access | `show.movie.name` |
+| 7 | Relationship traversal in filter | `Show.objects.filter(movie__genre="Action")` |
+| 8 | Reverse relationships (default) | `movie.show_set.all()` |
+| 9 | `related_name` | `movie.shows.all()` |
+| 10 | Reverse traversal in filter | `Movie.objects.filter(shows__price__gt=1000)` |
+| 11 | Query optimization | `select_related()`, `prefetch_related()` |
+| 12 | OR logic | `Q()` |
+| 13 | Aggregation | `annotate()`, `aggregate()`, `Count()` |
+| 14 | DB-level expressions | `F()`, `Case()`, `When()` |
+| 15 | Correlated subqueries | `Subquery()`, `OuterRef()`, `Exists()` |
+| 16 | Production readiness | transactions, locking, constraints, indexes |
 
 ---
 
 ### Suggested Practice Exercises
 
-1. Get all shows for a movie named "Avatar", ordered by price descending.
-2. Find all cinema halls in a cinema called "PVR" that have more than 50 seats.
-3. Find all users who have made more than 3 reservations.
-4. Find the total revenue (sum of show prices across all reservations) per cinema.
-5. Rewrite exercise 1–4 with `select_related`/`prefetch_related` and check the query count using `django.db.connection.queries` or Django Debug Toolbar.
+1. Create a Cinema, a CinemaHall inside it, and 10 Seats using `bulk_create()`.
+2. Create a Movie and a Show, then use `update_or_create()` to change its price.
+3. Update all Shows in a given cinema hall to increase price by 10% using `F()`.
+4. Delete a Movie that has no Shows, then try deleting one that does — observe `ProtectedError`.
+5. Get all shows for a movie named "Avatar", ordered by price descending.
+6. Find all cinema halls in a cinema called "PVR" that have more than 50 seats.
+7. Find all users who have made more than 3 reservations.
+8. Find the total revenue (sum of show prices across all reservations) per cinema.
+9. Rewrite exercises 5–8 with `select_related`/`prefetch_related` and check the query count using `django.db.connection.queries` or Django Debug Toolbar.
