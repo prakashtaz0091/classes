@@ -83,7 +83,7 @@
 
 
 # for name in participants:
-#     print(name.capitalize())
+    # print(name.capitalize())
 
 
 # print(participants)
