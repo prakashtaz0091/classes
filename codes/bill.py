@@ -39,8 +39,6 @@ def calculate_final_amount(cart):
 
 def show_bill_summary(cart):
     
-    cart = {}
-
     bill_draft = """
     ==============================
         BILL SUMMARY
