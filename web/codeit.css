@@ -1,0 +1,150 @@
+:root{
+    --primary-color: #f85604;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.logo-image{
+    width: 12rem;
+}
+
+.container{
+    max-width: 1400px;
+    margin: auto;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.header-wrapper{
+    box-shadow: 0px 2px 5px rgb(189, 189, 189);
+}
+
+.contact-info{
+    display: flex;
+    gap: 2rem;
+    font-size: 1rem;
+}
+
+.contact-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contact-heading{
+    text-align: center;
+    font-weight: 600;
+}
+
+.contact{
+    font-weight:lighter;
+}
+
+
+.search-login{
+    /* border: 1px solid black; */
+    display: flex;
+    gap: 2rem;
+}
+
+.search-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid gray;
+    padding: 8px;
+    border-radius: 24px;
+}
+
+.search-box:focus-within{
+    border: 1px solid var(--primary-color);
+}
+
+.search-box input{
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+}
+
+.search-box img{
+    width: 1.3rem;
+}
+
+.login, .login a{
+    color: var(--primary-color);
+}
+.login i{
+    font-size: 1rem;
+}
+
+.login{
+    background-color: #feeee5;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px;
+    border-radius: 8px;
+}
+
+.login a{
+    text-decoration: none;
+}
+
+.hero-section{
+    display: flex;
+    border: 2px solid black;
+    justify-content: space-between;
+}
+
+.left{
+    width: 48%;
+    border: 1px solid red;
+}
+.right{
+    width: 48%;
+    border: 1px solid red;
+}
+
+.right img{
+    width: 100%;
+}
+
+.mini-badges{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.mini-badges div{
+    border: 2px solid red;
+}
+
+@media screen and (max-width: 1024px){
+    .contact-info{
+        display: none;
+    }
+
+    .hero-section{
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .left, .right{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .search-box{
+        display: none;
+    }
+}
