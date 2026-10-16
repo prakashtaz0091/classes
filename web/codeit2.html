@@ -6,13 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IT Training in Dharan, Nepal</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
 
 </head>
 
 <body>
+
+    <div id="sidePanel"
+        class="left-[-100vw] absolute bg-gray-50 w-[100vw] h-[100vh] px-10 py-12 transition-all duration-300">
+        <div>Menu</div>
+        <div>Contact informations</div>
+        <div>search box</div>
+        <div id="closeElement" class="inline-block bg-gray-200 rounded-md px-2 py-3 lg:hidden">
+            <i class="fa fa-times"></i>
+        </div>
+    </div>
+
+    <form class="mx-auto max-w-lg space-y-5 rounded-xl bg-white p-6 shadow-md">
+        <div>
+            <label for="fullname" class="mb-2 block text-sm font-medium text-gray-700">
+                Full Name
+            </label>
+            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+        </div>
+
+        <div>
+            <label for="email" class="mb-2 block text-sm font-medium text-gray-700">
+                Email Address
+            </label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+        </div>
+
+        <div>
+            <label for="message" class="mb-2 block text-sm font-medium text-gray-700">
+                Message
+            </label>
+            <textarea id="message" name="message" rows="5" placeholder="Write your message..." required
+                class="w-full resize-y rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"></textarea>
+        </div>
+
+        <button type="submit"
+            class="w-full rounded-lg bg-blue-600 px-4 py-3 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Send Message
+        </button>
+    </form>
+
+
     <div class="shadow-md">
-        <div class="flex justify-between items-center max-w-[1600px]  mx-auto">
+        <div class="flex px-3 lg:p-0 justify-between items-center max-w-[1600px]  mx-auto">
             <div>
                 <img class="w-60" src="./images/codeit-logo.webp" alt="codeit logo">
             </div>
@@ -63,6 +106,10 @@
                         Login</a>
                 </div>
 
+                <div id="menuElement" class="bg-gray-200 rounded-md px-2 py-3 lg:hidden">
+                    <i class="fa fa-bars text-2xl " aria-hidden="true"></i>
+                </div>
+
             </div>
         </div>
     </div>
@@ -71,16 +118,18 @@
     <div class=" max-w-[1600px] mx-auto mt-10 flex flex-col-reverse lg:flex-row  justify-between">
         <div class="mt-10 lg:mt-0 w-[98%] mx-auto">
 
-            <div class="border border-orange-400 inline-block px-6 py-2 rounded-4xl bg-gray-100 text-orange-400">Quality Education Without Financial Barriers</div>
+            <div class="border border-orange-400 inline-block px-6 py-2 rounded-4xl bg-gray-100 text-orange-400">Quality
+                Education Without Financial Barriers</div>
 
             <h1 class="text-6xl font-bold mt-10">Nepal's Most Affordable IT Training</h1>
 
             <p class="mt-6">Live + Recorded | Job-Focused | Career Ready</p>
-            <p class="mt-4 text-xl">Get job-ready with live classes, lifetime access, and a guaranteed internship - all for less than Rs.2,500.</p>
+            <p class="mt-4 text-xl">Get job-ready with live classes, lifetime access, and a guaranteed internship - all
+                for less than Rs.2,500.</p>
 
             <div class="grid grid-cols-2 gap-4 mt-10">
 
-                <div class="border border-gray-200 px-4 py-3 rounded-md" >students trained</div>
+                <div class="border border-gray-200 px-4 py-3 rounded-md">students trained</div>
                 <div class="border border-gray-200 px-4 py-3 rounded-md">access and support</div>
                 <div class="border border-gray-200 px-4 py-3 rounded-md">recorded video</div>
                 <div class="border border-gray-200 px-4 py-3 rounded-md">google rating</div>
@@ -95,7 +144,7 @@
     <div class="mx-4 max-w-[1600px] lg:mx-auto mt-5">
         <h2 class="text-4xl font-bold">New Batch Starting Soon</h2>
         <p class="text-xl italic">Join the live class on Google Meet.</p>
-        
+
         <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="border border-2 border-gray-200 inline-block px-5 py-6 rounded-xl relative">
                 <h3 class="text-2xl font-bold mb-2">Cyber Security</h3>
@@ -146,9 +195,68 @@
                 </div>
             </div>
         </div>
-    
+
     </div>
 
+
+    <script>
+        let menuElement = document.getElementById("menuElement")
+        let closeElement = document.getElementById("closeElement")
+        let sidePanel = document.getElementById("sidePanel")
+
+        menuElement.addEventListener("click", () => {
+            console.log("menu button was clicked");
+            menuElement.classList.add("hidden")
+            // sidePanel.classList.remove("hidden")
+            sidePanel.classList.remove("left-[-100vw]")
+            sidePanel.classList.add("left-0")
+
+
+        });
+
+        closeElement.addEventListener("click", () => {
+            console.log("close button was clicked");
+            menuElement.classList.remove("hidden")
+            sidePanel.classList.remove("left-0")
+            sidePanel.classList.add("left-[-100vw]")
+
+        });
+
+
+
+        // form validation
+        let fullname = document.getElementById("fullname")
+
+        fullname.addEventListener("focusout", ()=>{
+            console.log("Full name entered");
+            const fullname_value = fullname.value
+            const words_count = fullname_value.trim().split(' ').length
+            console.log(words_count);
+            
+            if (words_count < 2){
+                alert("Invalid full name, it must contain at least two words");
+                fullname.value = ""
+            }
+            
+        })
+
+        let email = document.getElementById("email")
+
+        email.addEventListener("focusout", ()=>{
+            console.log("Email entered");
+            const email_value = email.value
+            
+            if (!email_value.trim().toLowerCase().endsWith("@gmail.com")){
+                alert("Invalid gmail account");
+                email.value = ""
+            }
+            
+        })
+
+
+
+
+    </script>
 
 </body>
 
