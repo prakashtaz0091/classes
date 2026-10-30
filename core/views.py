@@ -3,6 +3,15 @@ from django.http import HttpResponse
 from .models import Course
 
 
+def course_detail(request, course_id):
+    # print("User clicked ", course_id)
+    course = Course.objects.get(id=course_id)
+    # print(course)
+
+    return render(request, "core/course_detail.html", {
+        'course':course
+    })
+
 def home(request):
     print("Someone made request in home page")
     
@@ -21,7 +30,13 @@ def contact(request):
     print("Someone made request in contact page")
 
 def courses(request):
-    print("Someone made request in courses page")
+    search = request.GET.get("search")
+    # print("User is searching for ", request.GET.get("search"))
+    courses = Course.objects.filter(name__icontains=search)
+    
+    return render(request, "core/courses.html", {
+        'courses':courses
+    })
 
 def about(request):
     print("Someone made request in about page")

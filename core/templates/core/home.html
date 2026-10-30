@@ -22,37 +22,6 @@
         </div>
     </div>
 
-    <form class="mx-auto max-w-lg space-y-5 rounded-xl bg-white p-6 shadow-md">
-        <div>
-            <label for="fullname" class="mb-2 block text-sm font-medium text-gray-700">
-                Full Name
-            </label>
-            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required
-                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-        </div>
-
-        <div>
-            <label for="email" class="mb-2 block text-sm font-medium text-gray-700">
-                Email Address
-            </label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" required
-                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-        </div>
-
-        <div>
-            <label for="message" class="mb-2 block text-sm font-medium text-gray-700">
-                Message
-            </label>
-            <textarea id="message" name="message" rows="5" placeholder="Write your message..." required
-                class="w-full resize-y rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"></textarea>
-        </div>
-
-        <button type="submit"
-            class="w-full rounded-lg bg-blue-600 px-4 py-3 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            Send Message
-        </button>
-    </form>
-
 
     <div class="shadow-md">
         <div class="flex px-3 lg:p-0 justify-between items-center max-w-[1600px]  mx-auto">
@@ -94,11 +63,11 @@
 
             </div>
             <div class="flex gap-4 items-center">
-                <div class="hidden md:flex gap-4 border border-gray-500 py-2 px-4 rounded-4xl">
+                <form action="{% url "courses" %}" class="hidden md:flex gap-4 border border-gray-500 py-2 px-4 rounded-4xl">
                     <img class="w-8" src="./icons/search.png" alt="search-logo">
-                    <input type="text" placeholder="Search courses...">
+                    <input type="text" name="search" placeholder="Search courses...">
 
-                </div>
+                </form>
                 
                 {% if user_authenticated %}
                 profile
@@ -154,8 +123,8 @@
 
         <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {% for course in courses %}
-            <div class="border border-2 border-gray-200 inline-block px-5 py-6 rounded-xl relative">
-                <h3 class="text-2xl font-bold mb-2"> {{ course.name }} </h3>
+            <a href="{% url 'course_detail' course.id %}" class="border border-2 border-gray-200 inline-block px-5 py-6 rounded-xl relative">
+                <h3 class="text-2xl font-bold mb-2"> {{ course.name|title }} </h3>
                 <div class="text-md mb-1">📅 Batch starts: <b>{{ course.start_date }}</b></div>
                 <span class="font-bold mr-2">
                     Rs. {{ course.offer_price }}
@@ -165,13 +134,45 @@
                 <div class="absolute top-[-14px] right-4 bg-gray-200 px-4 rounded-xl text-orange-400">
                     {{course.starts_in}}
                 </div>
-            </div>
+            </a>
             {% empty %}
             <h3> No courses available </h3>
             {% endfor %}
         </div>
 
     </div>
+
+
+    <form class="mx-auto max-w-lg space-y-5 rounded-xl bg-white p-6 shadow-md">
+        <div>
+            <label for="fullname" class="mb-2 block text-sm font-medium text-gray-700">
+                Full Name
+            </label>
+            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+        </div>
+
+        <div>
+            <label for="email" class="mb-2 block text-sm font-medium text-gray-700">
+                Email Address
+            </label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+        </div>
+
+        <div>
+            <label for="message" class="mb-2 block text-sm font-medium text-gray-700">
+                Message
+            </label>
+            <textarea id="message" name="message" rows="5" placeholder="Write your message..." required
+                class="w-full resize-y rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"></textarea>
+        </div>
+
+        <button type="submit"
+            class="w-full rounded-lg bg-blue-600 px-4 py-3 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Send Message
+        </button>
+    </form>
 
 
     <script>

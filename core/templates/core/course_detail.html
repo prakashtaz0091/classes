@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.name|title }}</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div id="sidePanel"
+        class="left-[-100vw] absolute bg-gray-50 w-[100vw] h-[100vh] px-10 py-12 transition-all duration-300">
+        <div>Menu</div>
+        <div>Contact informations</div>
+        <div>search box</div>
+        <div id="closeElement" class="inline-block bg-gray-200 rounded-md px-2 py-3 lg:hidden">
+            <i class="fa fa-times"></i>
+        </div>
+    </div>
+
+
+    <div class="shadow-md">
+        <div class="flex px-3 lg:p-0 justify-between items-center max-w-[1600px]  mx-auto">
+            <div>
+                <img class="w-60" src="./images/codeit-logo.webp" alt="codeit logo">
+            </div>
+            <div class="hidden lg:flex gap-10 text-center">
+                <div class="flex items-center gap-2 hover:text-orange-400 cursor-pointer">
+                    <i class="fa fa-headphones text-2xl" aria-hidden="true"></i>
+
+                    <div>
+                        <div class="contact-heading">
+                            Enquiry
+                        </div>
+                        <div class="contact">
+                            +977-25-575163
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 hover:text-orange-400 cursor-pointer">
+                    <i class="fa fa-phone text-2xl" aria-hidden="true"></i>
+
+                    <div>
+                        <div class="contact-heading">Technical support</div>
+                        <div class="contact">
+                            +977-9704508525
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 hover:text-orange-400 cursor-pointer">
+                    <i class="fa fa-whatsapp text-2xl" aria-hidden="true"></i>
+                    <div>
+                        <div class="contact-heading">Community</div>
+                        <div class="contact">+977-9862130505</div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="flex gap-4 items-center">
+                <div class="hidden md:flex gap-4 border border-gray-500 py-2 px-4 rounded-4xl">
+                    <img class="w-8" src="./icons/search.png" alt="search-logo">
+                    <input type="text" placeholder="Search courses...">
+
+                </div>
+                
+                {% if user_authenticated %}
+                profile
+
+                {% else %}
+                <div class="text-orange-400 bg-gray-100 px-4 py-3 rounded text-xl">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    <a href="">
+
+                        Login</a>
+                </div>
+                {% endif %}
+                
+
+                <div id="menuElement" class="bg-gray-200 rounded-md px-2 py-3 lg:hidden">
+                    <i class="fa fa-bars text-2xl " aria-hidden="true"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class=" max-w-[1600px] mx-auto mt-10 ">
+       <h1>{{course.name}}</h1>
+       <h1>{{course.description}}</h1>
+       <h1>{{course.price}}</h1>
+    </div>
+
+
+    <script>
+        let menuElement = document.getElementById("menuElement")
+        let closeElement = document.getElementById("closeElement")
+        let sidePanel = document.getElementById("sidePanel")
+
+        menuElement.addEventListener("click", () => {
+            console.log("menu button was clicked");
+            menuElement.classList.add("hidden")
+            // sidePanel.classList.remove("hidden")
+            sidePanel.classList.remove("left-[-100vw]")
+            sidePanel.classList.add("left-0")
+
+
+        });
+
+        closeElement.addEventListener("click", () => {
+            console.log("close button was clicked");
+            menuElement.classList.remove("hidden")
+            sidePanel.classList.remove("left-0")
+            sidePanel.classList.add("left-[-100vw]")
+
+        });
+
+
+
+        // form validation
+        let fullname = document.getElementById("fullname")
+
+        fullname.addEventListener("focusout", ()=>{
+            console.log("Full name entered");
+            const fullname_value = fullname.value
+            const words_count = fullname_value.trim().split(' ').length
+            console.log(words_count);
+            
+            if (words_count < 2){
+                alert("Invalid full name, it must contain at least two words");
+                fullname.value = ""
+            }
+            
+        })
+
+        let email = document.getElementById("email")
+
+        email.addEventListener("focusout", ()=>{
+            console.log("Email entered");
+            const email_value = email.value
+            
+            if (!email_value.trim().toLowerCase().endsWith("@gmail.com")){
+                alert("Invalid gmail account");
+                email.value = ""
+            }
+            
+        })
+
+
+
+
+    </script>
+
+</body>
+
+</html>
